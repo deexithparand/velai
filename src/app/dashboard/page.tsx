@@ -35,7 +35,7 @@ export default function TaskPage() {
           return
         }
 
-        const res = await fetch("https://velai-go.onrender.com/api/tasks", {
+        const res = await fetch("http://localhost:8000/api/tasks", {
           method: "POST", // assuming you accept email via POST body
           headers: {
             "Content-Type": "application/json",

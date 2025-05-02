@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Velai 🧑‍💻
 
-## Getting Started
+Frontend for the [Velai](https://velai.onrender.com/) platform — a job tracking and career management tool, built with **Next.js** and **ShadCN**.
 
-First, run the development server:
+## 🔗 Live URLs
+
+- **Frontend**: [velai.onrender.com](https://velai.onrender.com/)
+- **Backend API**: [velai-go.onrender.com](https://velai-go.onrender.com/)
+- **Frontend Repo**: [github.com/deexithparand/velai](https://github.com/deexithparand/velai)
+
+---
+
+## 🚀 Getting Started
+
+### 🔧 Prerequisites
+
+- Node.js 16+ (LTS recommended)
+- Yarn or npm
+- Docker (optional)
+
+### 🛠️ Build & Run Locally
+
+#### 1. Clone the repo
+```bash
+git clone https://github.com/deexithparand/velai.git
+cd velai
+````
+
+#### 2. Install dependencies
+
+```bash
+npm install
+# or if using yarn:
+yarn install
+```
+
+#### 3. Run locally
 
 ```bash
 npm run dev
-# or
+# or if using yarn:
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> This will start the development server at `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### 4. Or run with Docker
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+docker build -t velai .
+docker run -d -p 3000:3000 velai
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📦 API Integration
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The frontend interacts with the backend API at:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`https://velai-go.onrender.com/`
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎥 Video Demo
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Watch the demo video here: [Demo Video](https://www.loom.com/share/807b0d5ff7434e56957f5be5869bbc12?sid=a80245a8-e926-40e2-9a8f-01ff9027450d)
