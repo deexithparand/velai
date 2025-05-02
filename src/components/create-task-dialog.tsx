@@ -19,8 +19,10 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
+import { toast } from "sonner"
 
 export function CreateTaskDialog() {
+  const [dialogOpen, setDialogOpen] = useState(false)
   const [description, setDescription] = useState("")
   const [status, setStatus] = useState("todo")
   const [priority, setPriority] = useState("medium")
@@ -33,42 +35,106 @@ export function CreateTaskDialog() {
   const handleCreateTask = async () => {
     if (!description) return
     setLoading(true)
-
+  
+    const email = localStorage.getItem("userEmail")
+    const token = localStorage.getItem("token")
+  
+    if (!email || !token) {
+      console.error("Missing user email or token")
+      return
+    }
+  
+    // Generate a random number for the task ID
+    const randomId = Math.floor(Math.random() * 1000) + 100
+    const taskId = `task-${randomId}`
+  
     const newTask = {
-      id: Date.now().toString(),
-      description,
+      id: taskId,
+      title: description, // or replace with a separate title field
       status,
       priority,
+      label: "api", // or you can make this dynamic
+      agent: email,
+      email: email,
     }
-
-    // send to backend...
-
-    setDescription("")
-    setStatus("todo")
-    setPriority("medium")
-    setSuggestedPlaceholder("")
-    setLoading(false)
+  
+    try {
+      const res = await fetch("http://localhost:8000/api/add-task", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(newTask),
+      })
+  
+      if (!res.ok) {
+        throw new Error("Failed to create task")
+      }
+      
+      toast.success("Task deleted successfully")
+      setDialogOpen(false)
+      console.log("Task created successfully")
+    } catch (err) {
+      console.error("Error creating task:", err)
+    } finally {
+      setDescription("")
+      setStatus("todo")
+      setPriority("medium")
+      setSuggestedPlaceholder("")
+      setLoading(false)
+    }
   }
-
+  
   const handleSuggestWithAI = async () => {
     setSuggesting(true)
     try {
-      const mockAIResponse = {
-        suggestions: [
-          "Implement password reset functionality",
-          "Refactor authentication flow",
-          "Add loading state to login button",
-        ],
+      const token = localStorage.getItem("token")
+      const email = localStorage.getItem("userEmail")
+
+      console.log("token : ",token)
+      console.log("email : ",email)
+  
+      if (!token || !email) {
+        throw new Error("Missing token or email")
       }
 
-      setSuggestions(mockAIResponse.suggestions)
-      setSuggestedPlaceholder(mockAIResponse.suggestions[0])
+  
+      const res = await fetch("http://localhost:8000/api/suggest", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ email }),
+      })
+  
+      if (!res.ok) {
+        throw new Error("Suggestion API call failed")
+      }
+  
+      const data = await res.json()
+  
+      if (data.suggestions && data.suggestions.length > 0) {
+        setSuggestions(data.suggestions)
+        setSuggestedPlaceholder(data.suggestions[0])
+        setCurrentSuggestionIndex(0)
+      } else {
+        // Fallback if suggestions array is empty
+        const fallback = "AI couldn't generate suggestions right now"
+        setSuggestions([fallback])
+        setSuggestedPlaceholder(fallback)
+      }
     } catch (err) {
       console.error("AI Suggestion error:", err)
+      const fallback = "AI couldn't generate suggestions right now"
+      setSuggestions([fallback])
+      setSuggestedPlaceholder(fallback)
     } finally {
       setSuggesting(false)
     }
   }
+  
 
   const handleNextSuggestion = () => {
     if (suggestions.length > 1) {
@@ -79,7 +145,7 @@ export function CreateTaskDialog() {
   }
 
   return (
-    <Dialog>
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
         <Button variant="outline">+ Add Task</Button>
       </DialogTrigger>

@@ -44,6 +44,7 @@ export function SignupForm({
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({ email, password }),
       })
 
@@ -54,6 +55,8 @@ export function SignupForm({
       }
 
       toast.success("Signup successful!")
+      localStorage.setItem("userEmail", email) 
+      localStorage.setItem("token", data.cookie)
       setEmail("")
       setPassword("")
       setConfirmPassword("")

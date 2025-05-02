@@ -32,6 +32,7 @@ export function LoginForm({
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({ email, password }),
       })
 
@@ -42,6 +43,8 @@ export function LoginForm({
       }
 
       toast.success("Login successful!")
+      localStorage.setItem("userEmail", email) 
+      localStorage.setItem("token", data.cookie)
       setEmail("")
       setPassword("")
 
