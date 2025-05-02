@@ -34,7 +34,7 @@ export function DataTableRowActions<TData>({
         return
       }
 
-      const res = await fetch("http://localhost:8000/api/delete-task", {
+      const res = await fetch("https://velai-go.onrender.com/api/delete-task", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
