@@ -1,6 +1,6 @@
 # Velai 🧑‍💻
 
-Frontend for the [Velai](https://velai.onrender.com/) platform — a job tracking and career management tool, built with **Next.js** and **ShadCN**.
+Frontend for the [Velai](https://velai-go.onrender.com/) platform — a task tracking and management tool, built with **Next.js** and **ShadCN**.
 
 ## 🔗 Live URLs
 
