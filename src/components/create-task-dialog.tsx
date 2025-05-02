@@ -72,7 +72,7 @@ export function CreateTaskDialog() {
         throw new Error("Failed to create task")
       }
       
-      toast.success("Task deleted successfully")
+      toast.success("Task added successfully")
       setDialogOpen(false)
       console.log("Task created successfully")
     } catch (err) {
