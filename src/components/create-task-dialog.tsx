@@ -59,7 +59,7 @@ export function CreateTaskDialog() {
     }
   
     try {
-      const res = await fetch("http://localhost:8000/api/add-task", {
+      const res = await fetch("https://velai-go.onrender.com/api/add-task", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -100,7 +100,7 @@ export function CreateTaskDialog() {
       }
 
   
-      const res = await fetch("http://localhost:8000/api/suggest", {
+      const res = await fetch("https://velai-go.onrender.com/api/suggest", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
