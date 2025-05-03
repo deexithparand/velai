@@ -55,11 +55,15 @@ export function DataTableRowActions<TData>({
       toast.success("Task deleted successfully")
 
       if (onDelete) onDelete() // Refresh the data table
-    } catch (err: any) {
-      toast.error(err.message)
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        toast.error(err.message)
+      } else {
+        toast.error("Something went wrong")
+      }
     }
   }
-
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

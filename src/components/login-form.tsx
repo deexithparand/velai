@@ -49,8 +49,12 @@ export function LoginForm({
       setPassword("")
 
       router.push("/dashboard")
-    } catch (err: any) {
-      toast.error(`Error: ${err.message}`)
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+          toast.error(`Error: ${err.message}`)
+        } else {
+          toast.error("An unexpected error occurred")
+      }
     } finally {
       setLoading(false)
     }

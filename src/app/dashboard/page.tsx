@@ -11,7 +11,9 @@ import { UserNav } from "./components/user-nav"
 import { taskSchema } from "./data/schema"
 
 export default function TaskPage() {
-  const [tasks, setTasks] = useState<any[]>([])
+  type Task = z.infer<typeof taskSchema>
+
+  const [tasks, setTasks] = useState<Task[]>([])
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 
@@ -66,7 +68,7 @@ export default function TaskPage() {
         <div className="flex items-center justify-between space-y-2">
           <div>
             <h2 className="text-2xl font-bold tracking-tight">Welcome back!</h2>
-            <p className="text-muted-foreground">Here's a list of your tasks!</p>
+            <p className="text-muted-foreground">Here&apos;s a list of your tasks!</p>
           </div>
           <div className="flex items-center space-x-2">
             <CreateTaskDialog />
